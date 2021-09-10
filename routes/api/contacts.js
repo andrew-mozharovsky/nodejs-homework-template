@@ -1,20 +1,20 @@
 const express = require('express')
 const router = express.Router()
 const { joiContactsValidationSchema } = require('../../models/contact')
-const { validation } = require('../../middlewares')
+const { validation, authenticate } = require('../../middlewares')
 const { getAll, getById, addNewContact, updateContactById, deleteContactById, updateFavorite } = require('../../controllers/contacts')
 
 const validstionMiddleware = validation(joiContactsValidationSchema)
 
-router.get('/', getAll)
+router.get('/', authenticate, getAll)
 
 router.get('/:contactId', getById)
 
-router.post('/', validstionMiddleware, addNewContact)
+router.post('/', authenticate, validstionMiddleware, addNewContact)
 
 router.delete('/:contactId', deleteContactById)
 
-router.put('/:contactId', validstionMiddleware, updateContactById)
+router.put('/:contactId', authenticate, validstionMiddleware, updateContactById)
 
 router.patch('/:contactId/favorite', updateFavorite)
 
