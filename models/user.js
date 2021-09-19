@@ -22,6 +22,10 @@ const userSchema = Schema({
     type: String,
     default: null,
   },
+  avatarURL: {
+    type: String,
+    default: '',
+  },
 }, { versionKey: false, timestamps: true })
 
 userSchema.methods.comparePassword = function(password) {
@@ -33,6 +37,7 @@ const joiUserValidationSchema = Joi.object({
   email: Joi.string().email().required(),
   subscription: Joi.string().default('starter'),
   token: Joi.string().default(null),
+  avatarURL: Joi.string(),
 })
 
 const User = model('user', userSchema)
