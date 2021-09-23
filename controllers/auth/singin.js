@@ -13,6 +13,13 @@ const singin = async (req, res, next) => {
         massage: 'Email or password is wrong'
       })
     }
+    if (!user.verify) {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        massage: 'Email not verify'
+      })
+    }
     const payload = {
       id: user._id
     }
